@@ -17,7 +17,7 @@ get_timestamp() {
 get_process_info() {
     pid=$1
     # Captura a prioridade do processo (nice value) e a política de escalonamento
-    priority=$(ps -o ni -p "$pid" --no-headers 2>/dev/null)
+    priority=$(ps -o pri -p "$pid" --no-headers 2>/dev/null)
     policy=$(ps -o policy -p "$pid" --no-headers 2>/dev/null)
 
     # Caso algum campo seja vazio, preenche com "Unknown"
@@ -75,10 +75,12 @@ monitor_processes() {
         rm -f current_processes.txt
 
         # Pausa de 5 segundos
-        sleep 5
+        sleep 2
     done
 }
 
 # Inicia o monitoramento
-monitor_processes
+monitor_processes &
+sleep 600
+kill $!
 
