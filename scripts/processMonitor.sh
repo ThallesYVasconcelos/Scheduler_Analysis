@@ -74,13 +74,13 @@ monitor_processes() {
         # Limpa o arquivo temporário
         rm -f current_processes.txt
 
-        # Pausa de 5 segundos
+        # Pausa de 2 segundos
         sleep 2
     done
 }
 
 # Inicia o monitoramento
 monitor_processes &
-sleep 600
+sleep 3600
+rm -f current_process.txt
 kill $!
-

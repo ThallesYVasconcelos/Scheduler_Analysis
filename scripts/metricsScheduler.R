@@ -1,4 +1,3 @@
-# Carregar bibliotecas
 library(ggplot2)
 library(dplyr)
 library(lubridate)
@@ -14,10 +13,10 @@ process_data$End_Time <- as.POSIXct(process_data$End_Time, format="%Y-%m-%d %H:%
 
 # Calcular as métricas
 process_data <- process_data %>%
-  mutate(Turnaround_Time = difftime(End_Time, Start_Time, units = "secs"),
-         Response_Time = difftime(First_Activation, Start_Time, units = "secs"),
-         Waiting_Time = Turnaround_Time - difftime(End_Time, First_Activation, units = "secs"))
-
+  mutate(Turnaround_Time = as.numeric(difftime(End_Time, Start_Time, units = "secs")),
+         Response_Time = as.numeric(difftime(First_Activation, Start_Time, units = "secs")),
+         Waiting_Time = as.numeric(Turnaround_Time - difftime(End_Time, First_Activation, units = "secs")))
+         
 # Remover linhas com valores NA
 process_data <- na.omit(process_data)
 
@@ -83,16 +82,14 @@ ggplot(process_data, aes(x=Scheduling_Policy, y=Waiting_Time, fill=Scheduling_Po
 
 # 3. Distribuição temporal dos eventos de execução
 
-# Criação da coluna de eventos (Start, First Activation, End)
 events_data <- process_data %>%
   gather(key = "Event", value = "Timestamp", Start_Time, First_Activation, End_Time)
 
-# Distribuição temporal dos eventos para cada política com cores
-ggplot(events_data, aes(x=Timestamp, fill=Event)) +
-  geom_histogram(binwidth=60, position="dodge", color="black") +
-  scale_fill_brewer(palette="Paired") +
-  facet_wrap(~ Scheduling_Policy) +
-  labs(title="Distribuição Temporal dos Eventos por Política",
+# Distribuição temporal das políticas de escalonamento
+ggplot(events_data, aes(x=Timestamp, fill=Scheduling_Policy)) +
+  geom_histogram(binwidth=60, position="dodge", aes(fill=Scheduling_Policy)) +
+  scale_fill_brewer(palette="Set3") +
+  labs(title="Distribuição Temporal das Políticas de Escalonamento",
        x="Tempo", y="Frequência") +
   theme_minimal() +
   theme(legend.position = "top")
