@@ -1,7 +1,7 @@
 library(ggplot2)
 library(dplyr)
 library(lubridate)
-library(tidyr) # Para a função gather()
+library(tidyr) 
 
 # Ler o arquivo CSV
 process_data <- read.csv("./process_log.csv")

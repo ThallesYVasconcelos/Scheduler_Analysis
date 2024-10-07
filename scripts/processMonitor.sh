@@ -16,7 +16,7 @@ get_timestamp() {
 # Função para capturar a política de escalonamento e prioridade de um processo
 get_process_info() {
     pid=$1
-    # Captura a prioridade do processo (nice value) e a política de escalonamento
+    # Captura a prioridade do processo e a política de escalonamento
     priority=$(ps -o pri -p "$pid" --no-headers 2>/dev/null)
     policy=$(ps -o policy -p "$pid" --no-headers 2>/dev/null)
 
@@ -83,4 +83,4 @@ monitor_processes() {
 monitor_processes &
 sleep 3600
 rm -f current_process.txt
-kill $!
+kill $! 
