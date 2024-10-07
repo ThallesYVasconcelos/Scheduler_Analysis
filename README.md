@@ -2,7 +2,9 @@
 # Scheduler_Analysis
 
 Este projeto consiste em três scripts, o script process_monitor   monitora os processos em execução no Linux e o script metricsScheduler calcula métricas de escalonamento, como **Turnaround Time**, **Waiting Time** e **Response Time** e gera gráficos que demonstram análise sobre as métricas calculadas. Ademais, existe o script executeproject para executar os dois anteriores juntos, automatizando tudo. O monitoramento é feito por um script Bash que registra os processos em um arquivo CSV, e as métricas são calculadas posteriormente por um script R e o de execução do projeto é feito em bash.
-
+# RELATÓRIO DO PROJETO
+O link abaixo é referente ao relatório do projeto.Nele, está presente todas as informações necessárias para o entendimento dos scripts e informações necessárias sobre o escalonamento no linux e suas políticas.
+https://docs.google.com/document/d/1VUU0rsRlCObf_49-SWYiwqg2_8n2_8AZDJz1eE7IY_U/edit#heading=h.v2grw6o9c2zp
 ## Requisitos
 
 ### Para rodar o script Bash:
